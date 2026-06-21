@@ -1,0 +1,42 @@
+{
+  "name": "d1-migrate",
+  "version": "0.1.0",
+  "description": "Schema migrations for Cloudflare D1 — up, down, status, dry-run.",
+  "license": "MIT",
+  "type": "module",
+  "bin": {
+    "d1-migrate": "./dist/cli.js"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "build": "tsc",
+    "test": "node --test test/*.test.mjs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/AuDowty/d1-migrate"
+  },
+  "keywords": [
+    "cloudflare",
+    "d1",
+    "migrations",
+    "sqlite",
+    "schema"
+  ],
+  "dependencies": {
+    "commander": "^12.1.0",
+    "picocolors": "^1.1.1",
+    "smol-toml": "^1.3.1"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.0",
+    "typescript": "^5.7.2"
+  }
+}
