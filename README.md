@@ -6,51 +6,25 @@ Schema migrations for Cloudflare D1 — `up`, `down`, `status`, `dry-run`. The b
 
 ```
 npm i -D d1-migrate
-# or one-shot
-npx d1-migrate --help
 ```
 
-Requires `wrangler` installed and authed (it's used under the hood for the actual SQL execution).
+Requires `wrangler` installed and authed.
 
 ## Use
 
-Create a migration:
+```bash
+npx d1-migrate create create_users     # generates up + down SQL files
 
-```
-npx d1-migrate create create_users
-```
+npx d1-migrate up                      # apply pending (local)
+npx d1-migrate up --remote             # apply pending (production)
+npx d1-migrate up --dry-run            # print SQL, don't execute
 
-Generates `migrations/0001_create_users.up.sql` and `0001_create_users.down.sql`. Edit each.
-
-Apply pending:
-
-```
-npx d1-migrate up                # local dev D1
-npx d1-migrate up --remote       # production
-npx d1-migrate up --dry-run      # print SQL, don't execute
-npx d1-migrate up --to 0003_seed # apply up to (and including) one
+npx d1-migrate down                    # revert most recent
+npx d1-migrate status                  # show applied vs pending
 ```
 
-Revert:
-
-```
-npx d1-migrate down              # most recent
-npx d1-migrate down --to 0002    # revert until 0002 is rolled back too
-npx d1-migrate down --dry-run
-```
-
-Show what's applied vs pending:
-
-```
-npx d1-migrate status
-```
-
-## Config
-
-Reads the first `[[d1_databases]]` binding from `wrangler.toml` / `wrangler.json[c]`. Override with `--database <binding>`.
-
-Migrations live in `./migrations/`. State is tracked in a `d1_migrations` table created on first run.
+Reads the first `[[d1_databases]]` binding from your `wrangler.toml`. Migrations live in `./migrations/`, state tracked in a `d1_migrations` table.
 
 ## License
 
-MIT.
+MIT
